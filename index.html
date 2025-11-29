@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HomeAura Realtor</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #f5f7fb;
+        overflow-x: hidden;
+      }
+
+      /* NAVBAR */
+      nav {
+        background: white;
+        padding: 20px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      nav h1 {
+        font-size: 26px;
+        color: #2563eb;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+      nav ul {
+        display: flex;
+        gap: 30px;
+      }
+      nav ul li {
+        list-style: none;
+      }
+      nav ul li a {
+        text-decoration: none;
+        color: #555;
+        font-weight: 500;
+        transition: 0.3s ease-in-out;
+      }
+      nav ul li a:hover {
+        color: #2563eb;
+      }
+
+      /* SEARCH SECTION */
+      .search-section {
+        width: 90%;
+        margin: 40px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 18px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+        animation: fadeIn 0.6s ease;
+      }
+
+      .search-box {
+        position: relative;
+        width: 100%;
+      }
+      .search-box input {
+        width: 100%;
+        padding: 16px;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        font-size: 16px;
+        transition: 0.3s;
+      }
+      .search-box input:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 8px rgba(37, 99, 235, 0.2);
+      }
+
+      /* DROPDOWN */
+      #dropdownList {
+        background: white;
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        max-height: 240px;
+        overflow-y: auto;
+        position: absolute;
+        top: 60px;
+        display: none;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        animation: dropdownFade 0.2s ease;
+        z-index: 10;
+      }
+
+      #dropdownList div {
+        padding: 12px 15px;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      #dropdownList div:hover {
+        background: #2563eb;
+        color: white;
+      }
+
+      /* RESULTS GRID */
+      #results {
+        width: 90%;
+        margin: 30px auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        padding-bottom: 40px;
+      }
+
+      /* PREMIUM PROPERTY CARD */
+      .property-card {
+        background: white;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+        animation: fadeUp 0.5s ease;
+      }
+
+      .property-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .property-img {
+        height: 180px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+
+      .price-tag {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        background: #2563eb;
+        color: white;
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .property-info {
+        padding: 18px;
+      }
+
+      .property-info h4 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      .property-info p {
+        color: #777;
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes dropdownFade {
+        from {
+          opacity: 0;
+          transform: scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav>
+      <h1>HomeAura Realtor</h1>
+      <ul>
+        <li><a href="#">Buy</a></li>
+        <li><a href="#">Rent</a></li>
+        <li><a href="#">Sell</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- SEARCH SECTION -->
+    <section class="search-section">
+      <h2 class="text-xl mb-3" style="font-weight: 600; color: #333">
+        Search Locations
+      </h2>
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search for localities, cities..."
+          onkeyup="filterLocations()"
+        />
+        <div id="dropdownList"></div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results"></section>
+
+    <script>
+      let locationsData = [];
+
+      // Fetch locations.json
+      fetch("locations.json")
+        .then((res) => res.json())
+        .then((data) => (locationsData = data.locations));
+
+      // Filter dropdown
+      function filterLocations() {
+        const input = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const dropdown = document.getElementById("dropdownList");
+
+        dropdown.innerHTML = "";
+        if (!input) {
+          dropdown.style.display = "none";
+          return;
+        }
+
+        const filtered = locationsData.filter((loc) =>
+          loc.name.toLowerCase().includes(input)
+        );
+
+        dropdown.style.display = filtered.length ? "block" : "none";
+
+        filtered.forEach((item) => {
+          const div = document.createElement("div");
+          div.textContent = item.name;
+          div.onclick = () => selectLocation(item);
+          dropdown.appendChild(div);
+        });
+      }
+
+      // When a location is selected
+      function selectLocation(item) {
+        document.getElementById("searchInput").value = item.name;
+        document.getElementById("dropdownList").style.display = "none";
+        renderResults(item);
+      }
+
+      // Render property cards
+      function renderResults(item) {
+        const container = document.getElementById("results");
+        container.innerHTML = "";
+
+        item.properties.forEach((p) => {
+          container.innerHTML += `
+          <div class="property-card">
+            <div class="property-img" style="background-image:url('${
+              p.image ||
+              "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+            }')">
+              <div class="price-tag">${p.price}</div>
+            </div>
+            <div class="property-info">
+              <h4>${p.title}</h4>
+              <p>${p.type}</p>
+              <p>${p.location || item.name}</p>
+            </div>
+          </div>
+        `;
+        });
+      }
+    </script>
+  </body>
+</html>
